@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ImagesController extends Controller
 {
@@ -27,7 +28,16 @@ class ImagesController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $images = $request->file('images');
+
+        foreach ($images as $image) {
+            // Generate a unique filename
+            $filename = time() . '_' . $image->getClientOriginalName();
+            // Store the file on AWS S3
+            Storage::disk('s3')->put($filename, file_get_contents($image));
+        }
+
+        return 'Images uploaded successfully.';
     }
 
     /**

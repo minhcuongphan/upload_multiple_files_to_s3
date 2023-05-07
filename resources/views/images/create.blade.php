@@ -7,9 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <form accept="*" method="POST" action="{{ route('images.store') }}">
+    <form accept="*" method="POST" action="{{ route('images.store') }}" enctype="multipart/form-data">
         @csrf
-        <input type="file" name="name" multiple="multiple"><br><br>
+        <input type="file" name="images[]" multiple="multiple"><br><br>
         <br>
         <input type="submit" value="Submit">
      </form>
